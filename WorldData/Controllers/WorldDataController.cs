@@ -41,13 +41,12 @@ namespace WorldData.Controllers
       public ActionResult FilterCity()
       {
         string filterOption = Request.Form["filterOption"];
+        string orderOption = Request.Form["orderOption"];
 
         if (filterOption == "countryCode")
         {
-          Console.WriteLine(filterOption);
           string filterValue = Request.Form["filterValue"];
-          Console.WriteLine(filterValue);
-          List<City> filteredCities = City.GetFilteredCity(filterOption, filterValue);
+          List<City> filteredCities = City.GetFilteredCity(filterOption, filterValue, orderOption);
           return View("ListCity", filteredCities);
         }
         else
@@ -60,7 +59,7 @@ namespace WorldData.Controllers
           }
           else
           {
-            List <City> filteredCities = City.GetFilteredCity(filterOption, filterValue);
+            List <City> filteredCities = City.GetFilteredCity(filterOption, filterValue, orderOption);
             return View("ListCity", filteredCities);
           }
         }

@@ -47,14 +47,14 @@ namespace WorldData.Models
     }
 
 
-    public static List<City> GetFilteredCity(string filterOption, int filterValue)
+    public static List<City> GetFilteredCity(string filterOption, int filterValue, string orderOption)
     {
       List<City> allCities = new List<City> {};
       MySqlConnection conn = DB.Connection();
       conn.Open();
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
 
-      cmd.CommandText = "SELECT * FROM city WHERE "+filterOption+" > "+filterValue+";";
+      cmd.CommandText = "SELECT * FROM city WHERE "+filterOption+" > "+filterValue+" "+orderOption+";";
       MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
       while (rdr.Read())
       {
@@ -74,14 +74,14 @@ namespace WorldData.Models
       return allCities;
     }
 
-    public static List<City> GetFilteredCity(string filterOption, string filterValue)
+    public static List<City> GetFilteredCity(string filterOption, string filterValue, string orderOption)
     {
       List<City> allCities = new List<City> {};
       MySqlConnection conn = DB.Connection();
       conn.Open();
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
 
-      cmd.CommandText = "SELECT * FROM city WHERE "+filterOption+" = '"+filterValue+"';";
+      cmd.CommandText = "SELECT * FROM city WHERE "+filterOption+" = '"+filterValue+"' "+orderOption+";";
       MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
       while (rdr.Read())
       {
@@ -99,6 +99,22 @@ namespace WorldData.Models
         conn.Dispose();
       }
       return allCities;
+    }
+    public static void DeleteAll()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = "DELETE FROM city;";
+
+      cmd.ExecuteNonQuery();
+
+      conn.Close();
+      if (conn!= null)
+      {
+        conn.Dispose();
+      }
     }
   }
 }

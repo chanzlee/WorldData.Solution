@@ -7,7 +7,8 @@ namespace WorldData.Controllers
       [HttpGet("/")]
       public ActionResult Index()
       {
-        return View();
+        Country randomCountry = Country.GetRandomCountry();
+        return View(randomCountry);
       }
     }
 }

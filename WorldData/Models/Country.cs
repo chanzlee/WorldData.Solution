@@ -96,5 +96,57 @@ namespace WorldData.Models
 
       return filteredCountries;
     }
+
+    public static Country GetRandomCountry()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = "SELECT * FROM country ORDER BY RAND() LIMIT 1;";
+      //SELECT * FROM country WHERE continent = 'North America';
+      MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+      Country newCountry;
+      rdr.Read();
+      string code = rdr.GetString(0);
+      string name = rdr.GetString(1);
+      string continent = rdr.GetString(2);
+      string region = rdr.GetString(3);
+      int capital;
+      if (!rdr.IsDBNull(13))
+      {
+        capital = rdr.GetInt32(13);
+      }
+      else
+      {
+        capital = 0;
+      }
+
+      newCountry = new Country(code, name, continent, region, capital);
+
+
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+
+      return newCountry;
+    }
+
+    public static void DeleteAll()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+
+      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"DELETE FROM country;";
+      cmd.ExecuteNonQuery();
+
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+    }
   }
 }

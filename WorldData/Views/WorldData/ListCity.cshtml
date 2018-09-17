@@ -7,11 +7,16 @@
     <option value="countryCode">Country Code</option>
     <option value="population">Population</option>
   <label for="filterValue">Filter Value</label>
-    <input type="text" class="form-control" id="filterValue" name="filterValue">
+    <input type="text" class="form-control mb-2" id="filterValue" name="filterValue">
+  <select id="orderOption" name="orderOption" class="custom-select mb-2">
+    <option value="">Without sorting</option>
+    <option value="ORDER BY population">Order by population</option>
+    <option value="ORDER BY population DESC">Order by population reverse</option>
+  </select>
   <button type="submit" class="btn btn-info">Filter</button>
 </form>
 
-@if (@Model == null)
+@if (@Model.Count == 0)
 {
   <h1>Entered wrong type of input.</h1>
 }
