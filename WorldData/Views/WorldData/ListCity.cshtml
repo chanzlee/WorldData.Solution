@@ -1,0 +1,30 @@
+@{
+  Layout = "_Layout";
+}
+
+<form action="/worlddata/city" method="post" class="my-2">
+  <select id="filterOption" name="filterOption" class="custom-select mb-2">
+    <option value="countryCode">Country Code</option>
+    <option value="population">Population</option>
+  <label for="filterValue">Filter Value</label>
+    <input type="text" class="form-control" id="filterValue" name="filterValue">
+  <button type="submit" class="btn btn-info">Filter</button>
+</form>
+
+@if (@Model == null)
+{
+  <h1>Entered wrong type of input.</h1>
+}
+else
+{
+  @foreach (var city in @Model)
+  {
+    <div class="card bg-faded card-block mb-3 p-3">
+      <h1>@city.CityName</h1>
+      <ul>
+        <li>Country Code: @city.CountryCode</li>
+        <li>Population: @city.Population</li>
+      </ul>
+    </div>
+  }
+}

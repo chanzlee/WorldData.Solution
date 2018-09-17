@@ -1,0 +1,25 @@
+@{
+  Layout = "_Layout";
+}
+
+<form action="/worlddata/country" method="post" class="my-2">
+  <select id="filterOption" name="filterOption" class="custom-select mb-2">
+    <option value="continent" selected>Continent</option>
+    <option value="region">Region</option>
+  </select>
+  <input type="text" class="form-control mb-2" name="filterValue">
+  <button type="submit" class="btn btn-info">Filter</button>
+</form>
+
+@foreach (var country in @Model)
+{
+  <div class="card bg-faded card-block mb-3 p-3">
+    <h1>@country.Name</h1>
+    <ul>
+      <li>Country Code: @country.Code</li>
+      <li>Continent: @country.Continent</li>
+      <li>Region: @country.Region</li>
+      <li>Capital: @country.Capital</li>
+    </ul>
+  </div>
+}
